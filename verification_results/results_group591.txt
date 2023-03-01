@@ -1,0 +1,2 @@
+True
+These were the summmations group591 calculated: {1, 2, 4, 5} 
