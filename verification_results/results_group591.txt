@@ -1,2 +1,2 @@
 True
-These were the summmations group591 calculated: {1, 2, 4, 5} 
+These were the summmations we calculated for group591: {1, 2, 4, 5} 

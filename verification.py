@@ -55,14 +55,27 @@ class Verifier():
             self.errorLog.append(f"ERROR: {self.sequence} were not calculated!")
             return False
 
-for filename in os.listdir('./outputs'):
-    groupName = filename.replace("output_","")
-    V = Verifier(f"./inputs/input_{groupName}.txt", f"./outputs/{filename}")
-    # print(V.result)
-    f = open(f"./verification_results/results_{groupName}.txt", "w")
-    f.write(str(V.result) + "\n")
-    for error in V.errorLog:
-        f.write(error)
-    f.write(f"These were the summmations we calculated for {groupName}: {V.sums} \n")
-    if V.result == False:
-        f.write(f"These were the sums we were missing: {V.sequence}")
+verifying = "ours"
+
+if verifying == "ours":
+    for filename in os.listdir('./our_outputs'):
+        groupName = filename.replace("output_","")
+        V = Verifier(f"./inputs/input_{groupName}.txt", f"./our_outputs/{filename}")
+        f = open(f"./verification_results/results_{groupName}.txt", "w")
+        f.write(str(V.result) + "\n")
+        for error in V.errorLog:
+            f.write(error)
+        f.write(f"These were the summmations we calculated for {groupName}: {V.sums} \n")
+        if V.result == False:
+            f.write(f"These were the sums we were missing: {V.sequence}")
+else:
+    for filename in os.listdir('./outputs'):
+        groupName = filename.replace("output_","")
+        V = Verifier(f"./inputs/input_group589.txt", f"./outputs/{filename}")
+        f = open(f"./verification_results/results_{groupName}.txt", "w")
+        f.write(str(V.result) + "\n")
+        for error in V.errorLog:
+            f.write(error)
+        f.write(f"These were the summmations {groupName} calculated: {V.sums} \n")
+        if V.result == False:
+            f.write(f"These were the sums they were missing: {V.sequence}")
