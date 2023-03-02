@@ -59,9 +59,9 @@ class Verifier():
 verifying = "ours"
 
 if verifying == "ours":
-    for filename in os.listdir('./our_outputs'):
+    for filename in os.listdir('./our_outputs2'):
         groupName = filename.replace("output_","")
-        V = Verifier(f"./inputs/input_{groupName}", f"./our_outputs/{filename}")
+        V = Verifier(f"./inputs/input_{groupName}", f"./our_outputs2/{filename}")
         f = open(f"./verification_results/results_{groupName}", "w")
         f.write(str(V.result) + "\n")
         # f.write(f"These were the summmations we calculated for {groupName}: {V.sums} \n")

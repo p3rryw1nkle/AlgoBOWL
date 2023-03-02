@@ -10,10 +10,14 @@ import os
 class Solver():
     def __init__(self, inputFile):
         self.sequence = self.readInput(inputFile) # reads in a sequence from a group's input file
+        self.differences = {}
+        self.findDiffs()
+        self.addDiffs()
+        self.differences = {}
+        self.findDiffs()
+        self.addDiffs()
         self.operations = []
         self.sums = []
-        # self.differences = []
-        # self.findDifferences()
         self.findSums()
         # print(len(self.operations))
         # print(self.operations)
@@ -30,9 +34,23 @@ class Solver():
         file.close()
         return nums
 
+    def findDiffs(self):
+        for i, num in enumerate(self.sequence):
+            if i < len(self.sequence) - 1:
+                target = self.sequence[i + 1] - num
+                if target in self.differences:
+                    self.differences[target] += 1
+                else:
+                    self.differences[target] = 1 
+
+    def addDiffs(self):
+        for diff in self.differences:
+            if self.differences[diff] > 1 and self.differences not in self.sequence:
+                self.sequence.append(diff)
+        self.sequence = sorted(self.sequence)
+
     def nextBiggestNum(self, nextNum, lastSum):
         target = nextNum - lastSum
-        # self.differences.append(target)
         lo = 0
         hi = len(self.sums) - 1
         curBest = 1
@@ -56,12 +74,11 @@ class Solver():
                 num2 = self.nextBiggestNum(nextNum,num1)
                 self.operations.append((num1,num2))
                 self.sums.append(num1 + num2)
-        # return sums
 
 for filename in os.listdir('./inputs'):
     groupName = filename.replace("input_","")
     H = Solver(f"./inputs/input_{groupName}")
-    f = open(f"./our_outputs/output_{groupName}", "w")
+    f = open(f"./our_outputs3/output_{groupName}", "w")
     f.write(str(len(H.operations)) + "\n")
     for operation in H.operations:
         f.write(f"{operation[0]} {operation[1]} \n")
